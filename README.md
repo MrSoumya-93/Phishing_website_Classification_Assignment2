@@ -1,7 +1,8 @@
 # Phishing Website Classification
 
 ## a. Problem Statement
-Phishing remains one of the most common causes of data breaches, enabling credential theft, fraud, and ransomware access. Traditional blacklist-based defenses fail against newly registered, short-lived phishing domains that appear faster than lists can be updated. Along with these cybersecurity threats, where attackers trick users into revealing sensitive information by mimicking legitimate websites. The objective of this project is to builds a machine learning classifier that predicts whether a website is **phishing** or **legitimate** using 30 extracted features covering URL structure, SSL status, domain age, and page behavior, and many more, enabling real-time detection of unseen threats. Five algorithms - Logistic Regression, Decision Tree, KNN, Naive Bayes, and SVM are compared on precision, recall, and MCC to select the best model. 
+## a. Problem Statement
+Phishing remains one of the most common causes of data breaches, enabling credential theft, fraud, and ransomware access. Along with these cybersecurity threats, attackers trick users into revealing sensitive information by mimicking legitimate websites. Blacklist-based defenses fail against newly registered, short-lived domains. This project builds a classifier that predicts whether a website is **phishing** or **legitimate** from 30 extracted features covering URL structure, SSL status, domain age, and page behavior. Logistic Regression, Decision Tree, KNN, Naive Bayes, and SVM are compared on precision, recall, and MCC.
 
 ## b. Dataset Description
 *   **Source:** [Phishing Website Dataset from Kaggle](https://www.kaggle.com/datasets/akashkr/phishing-website-dataset)
@@ -45,4 +46,4 @@ All observations below are based on the 2,211-sample test set, which contains **
 - **Not recommended without modification:** Least practical for real-world use - Naive Bayes, which is only suitable where missing a phishing website is unacceptable and a very high false alarm rate can be tolerated, such as a first-pass filter followed by manual review.
 
 ### Overall Winner for this Dataset: Support Vector Machine (SVM)
-The Support Vector Machine is the definitive winner for this dataset. It achieves the highest score across all six evaluation metrics. Its ability to handle non-linear relationships via the RBF kernel allows it to outperform simpler models while maintaining exceptional stability (evidenced by its near-perfect AUC and 94.22% MCC score).
+The Support Vector Machine is the best-performing model on this dataset, achieving the highest **Accuracy (97.15%)**, **AUC (0.9935)**, **F1 Score (96.77%)** and **MCC (0.9422)**, with the best Recall (96.43%) among the four usable models. K-Nearest Neighbors is a very close second and has the highest Precision (97.80%), so the gap between the two is small (63 vs 67 errors out of 2,211 test samples). SVM is selected as the winner for its better overall balance between false alarms and missed phishing websites.
