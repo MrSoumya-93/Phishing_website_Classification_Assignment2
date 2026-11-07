@@ -1,3 +1,4 @@
+%%writefile app.py
 import json
 from pathlib import Path
 
@@ -41,9 +42,7 @@ def load_schema():
 # ---------------------------------------------------------------------------
 st.title("🛡️ Phishing Website Classification")
 st.markdown("""
-This Streamlit app evaluates pre-trained models on the Phishing Website dataset, including Logistic Regression, Decision Tree, KNN, Naive Bayes, and SVM. It reports comprehensive metrics (Accuracy, AUC, Precision, Recall, F1 Score,
- MCC) and visualizes confusion matrices to highlight strengths and weaknesses in phishing detection.
-
+This Streamlit app evaluates pre-trained models on the Phishing Website dataset, including Logistic Regression, Decision Tree, KNN, Naive Bayes, and SVM. It reports comprehensive metrics (Accuracy, AUC, Precision, Recall, F1 Score, MCC) and visualizes confusion matrices to highlight strengths and weaknesses in phishing detection.
 
 **Instructions:** Upload the `test_data.csv` file provided in the GitHub repository.
 """)
@@ -54,6 +53,14 @@ selected_model_name = st.sidebar.selectbox("Choose a classifier:", list(MODEL_FI
 uploaded_file = st.file_uploader("Upload test data (CSV)", type=["csv"])
 
 if uploaded_file is not None:
+    # -----------------------------------------------------------------------
+    # NEW: Filename Validation Check
+    # -----------------------------------------------------------------------
+    if uploaded_file.name != "test_data.csv":
+        st.error(f"❌ Invalid file: '{uploaded_file.name}'. Only the file named 'test_data.csv' is accepted.")
+        st.stop()  # Halts the app so it doesn't try to process the wrong file
+
+    # If it passes the check, proceed as normal
     df = pd.read_csv(uploaded_file)
     schema = load_schema()
     feature_cols = schema["feature_columns"]
@@ -111,7 +118,7 @@ if uploaded_file is not None:
         
         # Display Confusion Matrix
         st.subheader("Confusion Matrix")
-        fig, ax = plt.subplots(figsize=(4, 3))
+        fig, ax = plt.subplots(figsize=(5, 4))
         ConfusionMatrixDisplay.from_predictions(
             y_test, 
             y_pred, 
@@ -120,9 +127,11 @@ if uploaded_file is not None:
             cmap="Blues", 
             ax=ax
         )
-                # --- MOVE LABELS TO TOP ---
+        
+        # Move labels to the top
         ax.xaxis.set_label_position('top') 
         ax.xaxis.tick_top()
+        
         st.pyplot(fig)
 
 else:
