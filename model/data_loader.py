@@ -7,7 +7,8 @@ import pandas as pd
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-DATA_PATH: Path = Path("dataset.csv")
+BASE_DIR: Path = Path(__file__).resolve().parent
+DATA_PATH: Path = BASE_DIR / "dataset.csv"
 ID_COLUMN: str = "id"
 TARGET_COLUMN: str = "Result"
 PHISHING_LABEL: int = -1          # original encoding: -1 = phishing, +1 = legit
