@@ -20,7 +20,7 @@ def build_pipeline() -> Pipeline:
     feature per class, which is inherently scale-invariant.
     """
     return Pipeline(steps=[
-        ("classifier", GaussianNB()),
+        ("classifier", GaussianNB(var_smoothing=1e-3)),
     ])
 
 
